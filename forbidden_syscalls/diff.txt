@@ -1,0 +1,17 @@
+diff --git a/sys/sys/syscall_mi.h b/sys/sys/syscall_mi.h
+index e200876ef7d..9987e95d65b 100644
+--- a/sys/sys/syscall_mi.h
++++ b/sys/sys/syscall_mi.h
+@@ -162,12 +162,6 @@ mi_syscall(struct proc *p, register_t code, const struct sysent *callp,
+ 	    uvm_map_inentry_sp, p->p_vmspace->vm_map.sserial))
+ 		return (EPERM);
+ 
+-	/* PC must be in un-writeable permitted text (sigtramp, libc, ld.so) */
+-	if (!uvm_map_inentry(p, &p->p_pcinentry, PROC_PC(p),
+-	    "[%s]%d/%d pc=%lx inside %lx-%lx: bogus syscall\n",
+-	    uvm_map_inentry_pc, p->p_vmspace->vm_map.wserial))
+-		return (EPERM);
+-
+ 	if ((error = pin_check(p, code)))
+ 		return (error);
+ 
