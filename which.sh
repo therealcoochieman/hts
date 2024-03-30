@@ -9,7 +9,8 @@ while getopts ":a" opt; do
 			;;
 		?)
 	        >&2 echo "which: unknown option -- ${OPTARG}"
-	        >&2 echo $usage
+            >&2 echo $USAGE
+            exit 1
 			;;
 	esac
 done
@@ -32,6 +33,7 @@ shift $(( $OPTIND - 1 ))
 
 if [ $# -eq 0 ]; then
 	>&2 echo $USAGE
+    exit 1
 fi
 
 
